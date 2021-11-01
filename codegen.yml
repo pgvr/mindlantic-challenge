@@ -3,7 +3,9 @@ overwrite: true
 errorsOnly: true
 schema: src/graphql/build-schema.js
 # This should be updated to match your client files
-documents: "./src/graphql/**/*.graphql"
+documents:
+  - "./src/graphql/queries/*.graphql"
+  - "./src/graphql/mutations/*.graphql"
 generates:
   # This will take your schema and print an SDL schema.
   src/graphql/__generated__/schema.graphql:

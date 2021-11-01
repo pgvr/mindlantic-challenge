@@ -23,6 +23,8 @@ export const builder = new SchemaBuilder<{
   DefaultInputFieldRequiredness: true;
   Context: Context;
   Scalars: {
+    // We modify the types for the `ID` type to denote that it's always a string when it comes in.
+    ID: { Input: string; Output: string };
     DateTime: { Input: Date; Output: Date };
   };
 }>({

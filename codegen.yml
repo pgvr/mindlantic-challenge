@@ -1,0 +1,16 @@
+# codegen.yml
+overwrite: true
+errorsOnly: true
+schema: src/graphql/build-schema.js
+# This should be updated to match your client files
+documents: "./src/graphql/**/*.graphql"
+generates:
+  # This will contain the generated apollo hooks and schema types needed to make type-safe queries with the apollo client
+  src/graphql/__generated__/operations.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher:
+        endpoint: "http://localhost:3000/api/graphql"

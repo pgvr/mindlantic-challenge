@@ -1,9 +1,9 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
+import { useTodosQuery } from "~/graphql/__generated__/operations";
 
 const Home: NextPage = () => {
-  return (
-    <div>Hello</div>
-  )
-}
+  const { data } = useTodosQuery();
+  return <div>Hello, {JSON.stringify(data)}</div>;
+};
 
-export default Home
+export default Home;

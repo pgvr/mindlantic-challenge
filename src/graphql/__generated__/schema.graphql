@@ -1,17 +1,34 @@
 input CreateTodoInput {
-  id: String!
+  title: String!
 }
 
 scalar DateTime
 
+input IdInput {
+  id: ID!
+}
+
 type Mutation {
   createTodo(input: CreateTodoInput!): Todo!
+  deleteTodo(input: IdInput!): Todo!
+  updateTodo(input: UpdateTodoInput!): Todo!
 }
 
 type Query {
+  todo(input: IdInput!): Todo
   todos: [Todo!]!
 }
 
 type Todo {
+  createdAt: DateTime!
   id: ID!
+  isDone: Boolean!
+  title: String!
+  updatedAt: DateTime!
+}
+
+input UpdateTodoInput {
+  id: ID!
+  isDone: Boolean!
+  title: String!
 }

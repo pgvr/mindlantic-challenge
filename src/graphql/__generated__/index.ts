@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from 'react-query';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -33,12 +33,18 @@ export type Scalars = {
 };
 
 export type CreateTodoInput = {
-  id: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type IdInput = {
+  id: Scalars['ID'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   createTodo: Todo;
+  deleteTodo: Todo;
+  updateTodo: Todo;
 };
 
 
@@ -46,26 +52,156 @@ export type MutationCreateTodoArgs = {
   input: CreateTodoInput;
 };
 
+
+export type MutationDeleteTodoArgs = {
+  input: IdInput;
+};
+
+
+export type MutationUpdateTodoArgs = {
+  input: UpdateTodoInput;
+};
+
 export type Query = {
   __typename?: 'Query';
+  todo?: Maybe<Todo>;
   todos: Array<Todo>;
+};
+
+
+export type QueryTodoArgs = {
+  input: IdInput;
 };
 
 export type Todo = {
   __typename?: 'Todo';
+  createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
+  isDone: Scalars['Boolean'];
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 };
+
+export type UpdateTodoInput = {
+  id: Scalars['ID'];
+  isDone: Scalars['Boolean'];
+  title: Scalars['String'];
+};
+
+export type CreateTodoMutationVariables = Exact<{
+  input: CreateTodoInput;
+}>;
+
+
+export type CreateTodoMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'Todo', id: string, title: string, isDone: boolean } };
+
+export type DeleteTodoMutationVariables = Exact<{
+  input: IdInput;
+}>;
+
+
+export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo: { __typename?: 'Todo', id: string, title: string, isDone: boolean } };
+
+export type UpdateTodoMutationVariables = Exact<{
+  input: UpdateTodoInput;
+}>;
+
+
+export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo: { __typename?: 'Todo', id: string, title: string, isDone: boolean } };
+
+export type TodoQueryVariables = Exact<{
+  input: IdInput;
+}>;
+
+
+export type TodoQuery = { __typename?: 'Query', todo?: { __typename?: 'Todo', id: string, title: string, isDone: boolean, createdAt: any, updatedAt: any } | null | undefined };
 
 export type TodosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TodosQuery = { __typename?: 'Query', todos: Array<{ __typename?: 'Todo', id: string }> };
+export type TodosQuery = { __typename?: 'Query', todos: Array<{ __typename?: 'Todo', id: string, title: string, isDone: boolean }> };
 
 
+export const CreateTodoDocument = `
+    mutation CreateTodo($input: CreateTodoInput!) {
+  createTodo(input: $input) {
+    id
+    title
+    isDone
+  }
+}
+    `;
+export const useCreateTodoMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreateTodoMutation, TError, CreateTodoMutationVariables, TContext>) =>
+    useMutation<CreateTodoMutation, TError, CreateTodoMutationVariables, TContext>(
+      (variables?: CreateTodoMutationVariables) => fetcher<CreateTodoMutation, CreateTodoMutationVariables>(CreateTodoDocument, variables)(),
+      options
+    );
+export const DeleteTodoDocument = `
+    mutation DeleteTodo($input: IdInput!) {
+  deleteTodo(input: $input) {
+    id
+    title
+    isDone
+  }
+}
+    `;
+export const useDeleteTodoMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<DeleteTodoMutation, TError, DeleteTodoMutationVariables, TContext>) =>
+    useMutation<DeleteTodoMutation, TError, DeleteTodoMutationVariables, TContext>(
+      (variables?: DeleteTodoMutationVariables) => fetcher<DeleteTodoMutation, DeleteTodoMutationVariables>(DeleteTodoDocument, variables)(),
+      options
+    );
+export const UpdateTodoDocument = `
+    mutation UpdateTodo($input: UpdateTodoInput!) {
+  updateTodo(input: $input) {
+    id
+    title
+    isDone
+  }
+}
+    `;
+export const useUpdateTodoMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateTodoMutation, TError, UpdateTodoMutationVariables, TContext>) =>
+    useMutation<UpdateTodoMutation, TError, UpdateTodoMutationVariables, TContext>(
+      (variables?: UpdateTodoMutationVariables) => fetcher<UpdateTodoMutation, UpdateTodoMutationVariables>(UpdateTodoDocument, variables)(),
+      options
+    );
+export const TodoDocument = `
+    query Todo($input: IdInput!) {
+  todo(input: $input) {
+    id
+    title
+    isDone
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export const useTodoQuery = <
+      TData = TodoQuery,
+      TError = unknown
+    >(
+      variables: TodoQueryVariables,
+      options?: UseQueryOptions<TodoQuery, TError, TData>
+    ) =>
+    useQuery<TodoQuery, TError, TData>(
+      ['Todo', variables],
+      fetcher<TodoQuery, TodoQueryVariables>(TodoDocument, variables),
+      options
+    );
 export const TodosDocument = `
     query Todos {
   todos {
     id
+    title
+    isDone
   }
 }
     `;

@@ -1,6 +1,5 @@
 # codegen.yml
 overwrite: true
-errorsOnly: true
 schema: src/graphql/build-schema.js
 # This should be updated to match your client files
 documents:

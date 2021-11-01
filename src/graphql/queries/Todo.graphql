@@ -1,0 +1,9 @@
+query Todo($input: IdInput!) {
+  todo(input: $input) {
+    id
+    title
+    isDone
+    createdAt
+    updatedAt
+  }
+}

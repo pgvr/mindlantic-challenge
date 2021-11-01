@@ -1,6 +1,6 @@
 import { builder } from "../builder";
 import { Todo } from "@prisma/client";
-import { db } from "~/lib/prisma";
+import { db } from "../../lib/prisma";
 
 const TodoObject = builder.objectRef<Todo>("Todo");
 
@@ -9,8 +9,8 @@ TodoObject.implement({
     id: t.exposeID("id"),
     title: t.exposeString("title"),
     isDone: t.exposeBoolean("isDone"),
-    createdAt: t.expose("createdAt", { type: Date }),
-    updatedAt: t.expose("updatedAt", { type: Date }),
+    createdAt: t.expose("createdAt", { type: "DateTime" }),
+    updatedAt: t.expose("updatedAt", { type: "DateTime" }),
   }),
 });
 

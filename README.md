@@ -2,7 +2,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, migrate the development database:
+First, install packages:
+
+```bash
+npm install
+# or
+yarn
+```
+
+Then migrate the development database:
 
 ```bash
 npm run migrate:dev

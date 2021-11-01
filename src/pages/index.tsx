@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useTodosQuery } from "~/graphql/__generated__/operations";
+import { useTodosQuery } from "~/graphql/__generated__";
 
 const Home: NextPage = () => {
   const { data } = useTodosQuery();
